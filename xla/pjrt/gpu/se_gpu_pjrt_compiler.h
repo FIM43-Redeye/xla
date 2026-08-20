@@ -69,6 +69,11 @@ class StreamExecutorGpuCompiler : public PjRtCompiler {
   DeserializePjRtTopologyDescription(
       const std::string& serialized_topology) override;
 
+  absl::StatusOr<std::unique_ptr<PjRtExecutable>> DeserializeExecutable(
+      const PjRtTopologyDescription& topology,
+      riegeli::Any<riegeli::Reader*> reader,
+      std::optional<CompileOptions>&& options) override;
+
   PjRtPlatformId pjrt_platform_id() const { return pjrt_platform_id_; }
 
   // Returns the target runtime ABI version that the compiled executables will

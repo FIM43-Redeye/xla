@@ -319,6 +319,7 @@ xla_cc_test(
     deps = [
         ":local_device_state",
         ":pjrt_stream_executor_client",
+        ":stream_executor_executable",
         ":stream_executor_platform_id_mapping",
         "//xla:debug_options_flags",
         "//xla:future",

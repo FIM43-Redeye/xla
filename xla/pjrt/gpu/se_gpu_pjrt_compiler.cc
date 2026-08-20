@@ -465,6 +465,15 @@ StreamExecutorGpuCompiler::DeserializePjRtTopologyDescription(
   return StreamExecutorGpuTopologyDescription::FromProto(proto);
 }
 
+absl::StatusOr<std::unique_ptr<PjRtExecutable>>
+StreamExecutorGpuCompiler::DeserializeExecutable(
+    const PjRtTopologyDescription& topology,
+    riegeli::Any<riegeli::Reader*> reader,
+    std::optional<CompileOptions>&& options) {
+  return StreamExecutorExecutable::Deserialize(std::move(reader), topology,
+                                               std::move(options));
+}
+
 absl::StatusOr<std::unique_ptr<PjRtRuntimeAbiVersion>>
 StreamExecutorGpuCompiler::GetTargetRuntimeAbiVersion() {
   ABSL_ASSIGN_OR_RETURN(Compiler * compiler, GetOrCreateCompiler());
